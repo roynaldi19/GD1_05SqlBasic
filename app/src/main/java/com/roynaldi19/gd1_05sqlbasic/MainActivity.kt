@@ -13,19 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.sqlbasics
+package com.roynaldi19.gd1_05sqlbasic
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
-@Entity(tableName = "park")
-data class CaliforniaPark(
-    @PrimaryKey(autoGenerate = true) val id: Int,
-    @ColumnInfo(name = "name") val name: String,
-    @ColumnInfo(name = "city") val city: String,
-    @ColumnInfo(name = "area_acres") val acres: Int,
-    @ColumnInfo(name = "park_visitors") val visitors: Int?,
-    @ColumnInfo(name = "established") val established: Long,
-    @ColumnInfo(name = "type") val type: String
-)
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        GlobalScope.launch {
+            AppDatabase.getDatabase(applicationContext).californiaParkDao().getAll()
+        }
+    }
+}

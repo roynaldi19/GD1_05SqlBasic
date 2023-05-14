@@ -13,19 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.sqlbasics
+package com.roynaldi19.gd1_05sqlbasic
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.Query
 
-class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        GlobalScope.launch {
-            AppDatabase.getDatabase(applicationContext).californiaParkDao().getAll()
-        }
-    }
+@Dao
+interface CaliforniaParkDao {
+    @Insert
+    suspend fun insertAll(parks: List<CaliforniaPark>)
+    @Query("SELECT * FROM park")
+    suspend fun getAll(): List<CaliforniaPark>
 }
